@@ -277,7 +277,7 @@ class CAC_Database_Cleaner {
 			return $retval;
 		}
 
-		$no = 5;
+		$no = 1;
 
 		global $wpdb, $bp;
 		$last = intval( $this->status['last_processed'] );
@@ -425,7 +425,7 @@ class CAC_Database_Cleaner {
 			return $retval;
 		}
 
-		$no = 25;
+		$no = 5;
 
 		global $wpdb, $bp;
 		$last = intval( $this->status['last_processed'] );
