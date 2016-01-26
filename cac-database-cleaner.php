@@ -252,7 +252,7 @@ class CAC_Database_Cleaner {
 		$this->status['last_processed'] = $last + 499;
 		update_site_option( 'cac-database-cleaner-status', $this->status );
 
-		$retval['message'] = '.';
+		$retval['message'] = '. ';
 		return $retval;
 	}
 
@@ -347,7 +347,7 @@ class CAC_Database_Cleaner {
 		$this->status['last_processed'] = $last + $no - 1;
 		update_site_option( 'cac-database-cleaner-status', $this->status );
 
-		$retval['message'] = '.';
+		$retval['message'] = '. ';
 		return $retval;
 	}
 
@@ -434,7 +434,7 @@ class CAC_Database_Cleaner {
 		$this->status['last_processed'] = $last + $no - 1;
 		update_site_option( 'cac-database-cleaner-status', $this->status );
 
-		$retval['message'] = '.';
+		$retval['message'] = '. ';
 		return $retval;
 	}
 
@@ -498,7 +498,7 @@ class CAC_Database_Cleaner {
 		$this->status['last_processed'] = $last + $no - 1;
 		update_site_option( 'cac-database-cleaner-status', $this->status );
 
-		$retval['message'] = '.';
+		$retval['message'] = '. ';
 		return $retval;
 	}
 }
