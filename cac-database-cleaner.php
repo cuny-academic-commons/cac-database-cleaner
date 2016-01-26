@@ -92,22 +92,23 @@ class CAC_Database_Cleaner {
 		wp_enqueue_script( 'cac-database-cleaner', plugins_url() . '/cac-database-cleaner/assets/js/cac-database-cleaner.js', array( 'jquery' ) );
 
 		$steps = array(
-			'reset_passwords',
-			'reset_emails',
+//			'reset_passwords',
+//			'reset_emails',
 		);
 
 		if ( function_exists( 'buddypress' ) ) {
-			$steps[] = 'bp_remove_non_public_xprofile_data';
-			$steps[] = 'bp_remove_non_public_groups';
-			$steps[] = 'bp_remove_private_messages';
+//			$steps[] = 'bp_remove_non_public_xprofile_data';
+//			$steps[] = 'bp_remove_non_public_groups';
+//			$steps[] = 'bp_remove_private_messages';
 		}
 
 		if ( is_multisite() ) {
-			$steps[] = 'ms_remove_non_public_blogs';
-			$steps[] = 'ms_remove_non_public_content';
+			$steps[] = 'ms_remove_firestats_tables';
+//			$steps[] = 'ms_remove_non_public_blogs';
+//			$steps[] = 'ms_remove_non_public_content';
 		}
 
-		$steps = array( 'ms_remove_non_public_content' );
+//		$steps = array( 'ms_remove_non_public_content' );
 
 		wp_localize_script( 'cac-database-cleaner', 'cac_database_cleaner', array(
 			'steps' => $steps,
@@ -381,6 +382,26 @@ class CAC_Database_Cleaner {
 
 		delete_site_option( 'cac-database-cleaner-status' );
 
+		return $retval;
+	}
+
+	protected function ms_remove_firestats_tables() {
+		global $wpdb;
+
+		$retval = array(
+			'message' => '',
+			'step_complete' => 0,
+		);
+
+		$tables = $wpdb->get_col( "SHOW TABLES LIKE '%_firestats_%'" );
+
+		if ( ! empty( $tables ) ) {
+			$tables_sql = implode( ',', array_map( 'esc_sql', $tables ) );
+			$wpdb->query( "DROP TABLE {$tables_sql}" );
+		}
+
+		$retval['message'] = __( 'Dropped firestats tables.', 'cac-database-cleaner' );
+		$retval['step_complete'] = 1;
 		return $retval;
 	}
 
